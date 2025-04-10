@@ -1,37 +1,67 @@
-import React from 'react';
-import { Phone, Mail, MapPin, Clock, ChevronDown, Truck, Hammer, Trash2, ClipboardCheck, Users, Building } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Phone, Mail, MapPin, Clock, ChevronDown, Truck, Hammer, Trash2, ClipboardCheck, Users, Building, Menu, X } from 'lucide-react';
 
 function App() {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 0);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
-      <header className="fixed w-full bg-white/95 backdrop-blur-sm shadow-sm z-50">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between h-20">
-            <div className="flex items-center space-x-2">
-              <Building className="w-8 h-8 text-orange-500" />
-              <span className="text-2xl font-bold text-navy-900">ConstructBG</span>
+      <header className={`sticky top-0 z-50 transition-all duration-300 ${
+        isScrolled ? 'shadow-[0_4px_20px_rgba(0,0,0,0.15)]' : ''
+      }`}>
+        <div className="bg-[rgba(17,19,24,0.85)] backdrop-blur-[8px] border-b border-white/12">
+          <div className="container mx-auto px-4">
+            <div className="flex items-center justify-between h-20">
+              <div className="flex items-center space-x-2">
+                <Building className="w-8 h-8 text-orange-500" />
+                <span className="text-2xl font-bold text-white uppercase tracking-[0.03em]">ConstructBG</span>
+              </div>
+              
+              <nav className={`${
+                isMenuOpen 
+                  ? 'absolute top-full left-0 right-0 bg-[rgba(17,19,24,0.95)] border-b border-white/12 md:relative md:top-auto md:left-auto md:right-auto md:bg-transparent md:border-none'
+                  : 'hidden md:block'
+              }`}>
+                <div className="flex flex-col md:flex-row md:items-center md:space-x-1 p-4 md:p-0">
+                  <a href="#home" className="nav-link text-white/90 hover:text-white">Начало</a>
+                  <a href="#about" className="nav-link text-white/90 hover:text-white">За Нас</a>
+                  <a href="#services" className="nav-link text-white/90 hover:text-white">Услуги</a>
+                  <a href="#pricing" className="nav-link text-white/90 hover:text-white">Цени</a>
+                  <a href="#projects" className="nav-link text-white/90 hover:text-white">Проекти</a>
+                  <a href="#contact" className="nav-link text-white/90 hover:text-white">Контакти</a>
+                  <a href="#contact" className="cta-button md:ml-4">Безплатен Оглед</a>
+                </div>
+              </nav>
+
+              <button 
+                className="md:hidden text-white p-2"
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+              >
+                {isMenuOpen ? (
+                  <X className="w-6 h-6" />
+                ) : (
+                  <Menu className="w-6 h-6" />
+                )}
+              </button>
             </div>
-            <nav className="hidden md:flex space-x-8">
-              <a href="#home" className="text-navy-900 hover:text-orange-500 font-medium">Начало</a>
-              <a href="#about" className="text-navy-900 hover:text-orange-500 font-medium">За Нас</a>
-              <a href="#services" className="text-navy-900 hover:text-orange-500 font-medium">Услуги</a>
-              <a href="#pricing" className="text-navy-900 hover:text-orange-500 font-medium">Цени</a>
-              <a href="#projects" className="text-navy-900 hover:text-orange-500 font-medium">Проекти</a>
-              <a href="#contact" className="text-navy-900 hover:text-orange-500 font-medium">Контакти</a>
-            </nav>
-            <button className="md:hidden">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            </button>
           </div>
         </div>
       </header>
 
       {/* Hero Section */}
       <section id="home" className="pt-20 relative">
-        <div className="absolute inset-0 bg-[url('https://i.pinimg.com/736x/42/3f/ba/423fba557438587bf43ee85c973e0739.jpg')] bg-cover bg-center opacity-50"></div>
+        <div className="absolute inset-0 bg-[url('https://i.pinimg.com/736x/42/3f/ba/423fba557438587bf43ee85c973e0739.jpg')] bg-cover bg-center opacity-60"></div>
         <div className="absolute inset-0 bg-gradient-to-b from-navy-900/90 to-transparent"></div>
         <div className="container mx-auto px-4 py-20 relative">
           <div className="flex flex-col md:flex-row items-center">

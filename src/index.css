@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -5,6 +7,7 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    font-family: 'Inter', system-ui, sans-serif;
   }
   
   body {
@@ -15,5 +18,13 @@
 @layer components {
   .container {
     @apply max-w-7xl mx-auto;
+  }
+
+  .nav-link {
+    @apply px-[1.2rem] py-4 uppercase tracking-[0.03em] font-medium transition-all duration-200 rounded-lg hover:bg-white/5 hover:scale-[1.03];
+  }
+
+  .cta-button {
+    @apply bg-gradient-to-r from-[#FF6B2C] to-[#FF8F50] px-6 py-3 rounded-lg uppercase tracking-[0.03em] font-medium text-white shadow-[0_2px_15px_rgba(255,107,44,0.25)] hover:scale-[1.03] hover:brightness-110 transition-all duration-200;
   }
 }
